@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="contented.settings_extension" class="Contented\TwigIntegration\Twig\SettingsTwigExtension">
+            <argument key="$manager" type="service" id="contented.settings_manager"/>
+            <tag name="twig.extension"/>
+        </service>
+        <service id="contented.renderer.twig_page_renderer" class="Contented\TwigIntegration\Renderer\ContentPageRenderer">
+            <argument key="$environment" type="service" id="twig"/>
+            <tag name="contented.page_renderer"/>
+        </service>
+        <service id="contented.renderer.twig_module_renderer" class="Contented\TwigIntegration\Renderer\ContentModuleRenderer">
+            <argument key="$environment" type="service" id="twig"/>
+            <tag name="contented.module_renderer"/>
+        </service>
+        <service id="contented.loader.twig" class="Contented\TwigIntegration\Loader\ContentLoader">
+            <argument key="$pageRenderer" type="service" id="contented.renderer.twig_page_renderer"/>
+            <argument key="$moduleRenderer" type="service" id="contented.renderer.twig_module_renderer"/>
+            <tag name="contented.content_loader" priority="-99"/>
+        </service>
+    </services>
+</container>
